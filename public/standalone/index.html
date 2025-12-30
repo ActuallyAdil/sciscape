@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SciScape - Interactive Science Platform</title>
+  <meta name="description" content="Explore physics, chemistry, and biology through interactive simulations">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <a href="#home" class="logo" data-nav="home">
+        <div class="logo-icon">⚛</div>
+        <span class="logo-text">SciScape</span>
+      </a>
+      <nav class="nav">
+        <a href="#physics" class="nav-link" data-nav="physics">Physics Lab</a>
+        <a href="#chemistry" class="nav-link" data-nav="chemistry">Chemistry Lab</a>
+        <a href="#biology" class="nav-link" data-nav="biology">Biology Explorer</a>
+        <a href="#concepts" class="nav-link" data-nav="concepts">Concepts</a>
+        <a href="#dashboard" class="nav-link" data-nav="dashboard">Dashboard</a>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+          <span class="sun-icon">☀️</span>
+          <span class="moon-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Home Page -->
+    <section id="home" class="page active">
+      <div class="hero">
+        <div class="hero-background">
+          <div class="hero-orb orb-1"></div>
+          <div class="hero-orb orb-2"></div>
+          <div class="hero-orb orb-3"></div>
+        </div>
+        <div class="hero-content">
+          <h1 class="hero-title">
+            <span class="gradient-text">Explore Science</span>
+            <br>Through Interaction
+          </h1>
+          <p class="hero-subtitle">
+            Physics, Chemistry, and Biology come alive through real-time simulations, 
+            3D models, and interactive experiments.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary" data-nav="physics">Start Exploring</button>
+            <button class="btn btn-secondary" data-nav="concepts">View Concepts</button>
+          </div>
+        </div>
+        <div class="hero-3d">
+          <div class="atom-model">
+            <div class="nucleus"></div>
+            <div class="orbit orbit-1"><div class="electron"></div></div>
+            <div class="orbit orbit-2"><div class="electron"></div></div>
+            <div class="orbit orbit-3"><div class="electron"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lab-cards">
+        <div class="lab-card physics-card" data-nav="physics">
+          <div class="lab-card-icon">⚡</div>
+          <h3>Physics Lab</h3>
+          <p>Explore motion, forces, waves, and electromagnetic phenomena</p>
+          <div class="lab-card-features">
+            <span>Gravity Simulation</span>
+            <span>Wave Mechanics</span>
+            <span>Real-time Graphs</span>
+          </div>
+        </div>
+        <div class="lab-card chemistry-card" data-nav="chemistry">
+          <div class="lab-card-icon">🧪</div>
+          <h3>Chemistry Lab</h3>
+          <p>Visualize molecules, reactions, and atomic structures</p>
+          <div class="lab-card-features">
+            <span>3D Molecules</span>
+            <span>Periodic Table</span>
+            <span>Bond Visualization</span>
+          </div>
+        </div>
+        <div class="lab-card biology-card" data-nav="biology">
+          <div class="lab-card-icon">🧬</div>
+          <h3>Biology Explorer</h3>
+          <p>Discover cells, anatomy, and living systems</p>
+          <div class="lab-card-features">
+            <span>Cell Structure</span>
+            <span>Body Systems</span>
+            <span>Interactive Quiz</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="features-section">
+        <h2>Why SciScape?</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🎮</div>
+            <h4>Learn by Doing</h4>
+            <p>Interactive simulations let you experiment with real physics</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h4>Real-time Data</h4>
+            <p>Live graphs and measurements update as you experiment</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔗</div>
+            <h4>Connected Concepts</h4>
+            <p>See how ideas link across physics, chemistry, and biology</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💾</div>
+            <h4>Save Progress</h4>
+            <p>Your experiments and learning progress are saved locally</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Physics Lab -->
+    <section id="physics" class="page">
+      <div class="page-header">
+        <h1>Physics Lab</h1>
+        <p>Explore motion, gravity, and mechanics through interactive simulation</p>
+      </div>
+      
+      <div class="physics-layout">
+        <div class="simulation-container">
+          <canvas id="physicsCanvas" width="600" height="400"></canvas>
+          <div class="simulation-overlay">
+            <div class="trail-toggle">
+              <label>
+                <input type="checkbox" id="showTrail" checked>
+                Show Trail
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="physics-sidebar">
+          <div class="control-panel">
+            <h3>Controls</h3>
+            <div class="control-buttons">
+              <button class="btn btn-primary" id="playPauseBtn">▶ Play</button>
+              <button class="btn btn-secondary" id="stepBtn">Step</button>
+              <button class="btn btn-secondary" id="resetBtn">Reset</button>
+            </div>
+            
+            <div class="control-group">
+              <label>Environment</label>
+              <select id="environment">
+                <option value="earth">Earth (9.81 m/s²)</option>
+                <option value="moon">Moon (1.62 m/s²)</option>
+                <option value="mars">Mars (3.71 m/s²)</option>
+                <option value="jupiter">Jupiter (24.79 m/s²)</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+            
+            <div class="slider-group">
+              <label>Gravity: <span id="gravityValue">9.81</span> m/s²</label>
+              <input type="range" id="gravitySlider" min="0" max="30" step="0.1" value="9.81">
+            </div>
+            
+            <div class="slider-group">
+              <label>Mass: <span id="massValue">1.0</span> kg</label>
+              <input type="range" id="massSlider" min="0.1" max="10" step="0.1" value="1">
+            </div>
+            
+            <div class="slider-group">
+              <label>Initial Velocity X: <span id="velXValue">2.0</span> m/s</label>
+              <input type="range" id="velXSlider" min="-10" max="10" step="0.5" value="2">
+            </div>
+            
+            <div class="slider-group">
+              <label>Initial Velocity Y: <span id="velYValue">-5.0</span> m/s</label>
+              <input type="range" id="velYSlider" min="-15" max="15" step="0.5" value="-5">
+            </div>
+            
+            <div class="slider-group">
+              <label>Bounciness: <span id="bouncinessValue">0.8</span></label>
+              <input type="range" id="bouncinessSlider" min="0" max="1" step="0.05" value="0.8">
+            </div>
+          </div>
+          
+          <div class="readouts-panel">
+            <h3>Live Readouts</h3>
+            <div class="readout">
+              <span class="readout-label">Time</span>
+              <span class="readout-value" id="timeReadout">0.00 s</span>
+            </div>
+            <div class="readout">
+              <span class="readout-label">Position</span>
+              <span class="readout-value" id="positionReadout">(0.0, 0.0) m</span>
+            </div>
+            <div class="readout">
+              <span class="readout-label">Velocity</span>
+              <span class="readout-value" id="velocityReadout">(0.0, 0.0) m/s</span>
+            </div>
+            <div class="readout">
+              <span class="readout-label">Acceleration</span>
+              <span class="readout-value" id="accelerationReadout">0.0 m/s²</span>
+            </div>
+            <div class="readout">
+              <span class="readout-label">Kinetic Energy</span>
+              <span class="readout-value" id="kineticReadout">0.0 J</span>
+            </div>
+            <div class="readout">
+              <span class="readout-label">Potential Energy</span>
+              <span class="readout-value" id="potentialReadout">0.0 J</span>
+            </div>
+          </div>
+          
+          <div class="experiment-actions">
+            <button class="btn btn-primary" id="saveExperiment">💾 Save Experiment</button>
+            <button class="btn btn-secondary" id="loadExperiment">📂 Load Experiment</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="graphs-container">
+        <div class="graph-panel">
+          <h4>Position vs Time</h4>
+          <canvas id="positionGraph" width="400" height="200"></canvas>
+        </div>
+        <div class="graph-panel">
+          <h4>Velocity vs Time</h4>
+          <canvas id="velocityGraph" width="400" height="200"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chemistry Lab -->
+    <section id="chemistry" class="page">
+      <div class="page-header">
+        <h1>Chemistry Lab</h1>
+        <p>Explore molecular structures and atomic properties</p>
+      </div>
+      
+      <div class="chemistry-layout">
+        <div class="molecule-viewer">
+          <canvas id="moleculeCanvas" width="500" height="400"></canvas>
+          <div class="molecule-controls">
+            <button class="btn btn-sm active" data-view="ball-stick">Ball & Stick</button>
+            <button class="btn btn-sm" data-view="space-fill">Space Fill</button>
+          </div>
+        </div>
+        
+        <div class="chemistry-sidebar">
+          <div class="molecule-selector">
+            <h3>Select Molecule</h3>
+            <div class="molecule-grid">
+              <button class="molecule-btn active" data-molecule="h2o">H₂O</button>
+              <button class="molecule-btn" data-molecule="co2">CO₂</button>
+              <button class="molecule-btn" data-molecule="ch4">CH₄</button>
+              <button class="molecule-btn" data-molecule="nh3">NH₃</button>
+              <button class="molecule-btn" data-molecule="o2">O₂</button>
+              <button class="molecule-btn" data-molecule="n2">N₂</button>
+              <button class="molecule-btn" data-molecule="c6h6">C₆H₆</button>
+            </div>
+          </div>
+          
+          <div class="molecule-properties">
+            <h3>Properties</h3>
+            <div class="property">
+              <span class="property-label">Name</span>
+              <span class="property-value" id="molName">Water</span>
+            </div>
+            <div class="property">
+              <span class="property-label">Formula</span>
+              <span class="property-value" id="molFormula">H₂O</span>
+            </div>
+            <div class="property">
+              <span class="property-label">Molecular Weight</span>
+              <span class="property-value" id="molWeight">18.015 g/mol</span>
+            </div>
+            <div class="property">
+              <span class="property-label">Bond Count</span>
+              <span class="property-value" id="molBonds">2</span>
+            </div>
+            <div class="property">
+              <span class="property-label">Bond Angle</span>
+              <span class="property-value" id="molAngle">104.5°</span>
+            </div>
+            <div class="property">
+              <span class="property-label">Polarity</span>
+              <span class="property-value" id="molPolarity">Polar</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="periodic-table-section">
+        <h2>Periodic Table</h2>
+        <div class="periodic-table" id="periodicTable"></div>
+        <div class="element-info" id="elementInfo">
+          <p>Click an element to see details</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Biology Explorer -->
+    <section id="biology" class="page">
+      <div class="page-header">
+        <h1>Biology Explorer</h1>
+        <p>Discover the building blocks of life</p>
+      </div>
+      
+      <div class="biology-layout">
+        <div class="cell-viewer">
+          <svg id="cellDiagram" viewBox="0 0 500 400" class="cell-diagram">
+            <!-- Cell membrane -->
+            <ellipse cx="250" cy="200" rx="220" ry="170" class="cell-membrane" />
+            
+            <!-- Cytoplasm background -->
+            <ellipse cx="250" cy="200" rx="210" ry="160" class="cytoplasm" />
+            
+            <!-- Nucleus -->
+            <ellipse cx="250" cy="200" rx="70" ry="55" class="organelle nucleus" data-organelle="nucleus" />
+            <ellipse cx="250" cy="200" rx="25" ry="20" class="nucleolus" data-organelle="nucleolus" />
+            
+            <!-- Mitochondria -->
+            <ellipse cx="120" cy="150" rx="35" ry="18" class="organelle mitochondria" data-organelle="mitochondria" transform="rotate(-20 120 150)" />
+            <ellipse cx="380" cy="250" rx="30" ry="15" class="organelle mitochondria" data-organelle="mitochondria" transform="rotate(30 380 250)" />
+            
+            <!-- Endoplasmic Reticulum -->
+            <path d="M 320 120 Q 340 140 330 160 Q 320 180 340 200 Q 360 220 350 240" class="organelle er" data-organelle="er" fill="none" stroke-width="8" />
+            
+            <!-- Golgi Apparatus -->
+            <g class="organelle golgi" data-organelle="golgi">
+              <path d="M 140 280 Q 160 270 180 280" fill="none" stroke-width="6" />
+              <path d="M 145 290 Q 165 280 185 290" fill="none" stroke-width="6" />
+              <path d="M 150 300 Q 170 290 190 300" fill="none" stroke-width="6" />
+            </g>
+            
+            <!-- Ribosomes -->
+            <circle cx="280" cy="140" r="6" class="organelle ribosome" data-organelle="ribosome" />
+            <circle cx="300" cy="155" r="6" class="organelle ribosome" data-organelle="ribosome" />
+            <circle cx="290" cy="170" r="6" class="organelle ribosome" data-organelle="ribosome" />
+            
+            <!-- Lysosomes -->
+            <circle cx="180" cy="130" r="15" class="organelle lysosome" data-organelle="lysosome" />
+            
+            <!-- Vacuole -->
+            <ellipse cx="350" cy="320" rx="40" ry="30" class="organelle vacuole" data-organelle="vacuole" />
+            
+            <!-- Centrioles -->
+            <g class="organelle centriole" data-organelle="centriole" transform="translate(100, 320)">
+              <rect x="0" y="0" width="20" height="8" rx="2" />
+              <rect x="5" y="12" width="20" height="8" rx="2" transform="rotate(90 15 16)" />
+            </g>
+            
+            <!-- Labels (toggleable) -->
+            <g class="cell-labels" id="cellLabels">
+              <text x="250" y="205" class="label">Nucleus</text>
+              <text x="120" y="125" class="label">Mitochondria</text>
+              <text x="360" y="180" class="label">ER</text>
+              <text x="165" y="320" class="label">Golgi</text>
+              <text x="180" y="110" class="label">Lysosome</text>
+              <text x="350" y="355" class="label">Vacuole</text>
+            </g>
+          </svg>
+        </div>
+        
+        <div class="biology-sidebar">
+          <div class="organelle-info" id="organelleInfo">
+            <h3>Cell Structure</h3>
+            <p>Click on an organelle to learn more about its function.</p>
+          </div>
+          
+          <div class="biology-controls">
+            <label class="toggle-label">
+              <input type="checkbox" id="showLabels" checked>
+              Show Labels
+            </label>
+            <label class="toggle-label">
+              <input type="checkbox" id="quizMode">
+              Quiz Mode
+            </label>
+          </div>
+          
+          <div class="quiz-panel" id="quizPanel" style="display: none;">
+            <h4>Quiz Mode</h4>
+            <p id="quizQuestion">Click on the: <strong id="targetOrganelle">Nucleus</strong></p>
+            <div class="quiz-score">
+              Score: <span id="quizScore">0</span> / <span id="quizTotal">0</span>
+            </div>
+          </div>
+          
+          <div class="body-systems">
+            <h3>Body Systems</h3>
+            <div class="system-buttons">
+              <button class="system-btn active" data-system="cell">Cell</button>
+              <button class="system-btn" data-system="skeletal">Skeletal</button>
+              <button class="system-btn" data-system="circulatory">Circulatory</button>
+              <button class="system-btn" data-system="nervous">Nervous</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Concepts Page -->
+    <section id="concepts" class="page">
+      <div class="page-header">
+        <h1>Concept Graph</h1>
+        <p>Explore how scientific concepts connect across disciplines</p>
+      </div>
+      
+      <div class="concepts-layout">
+        <div class="concepts-sidebar">
+          <div class="search-box">
+            <input type="text" id="conceptSearch" placeholder="Search concepts...">
+          </div>
+          
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn physics" data-filter="physics">Physics</button>
+            <button class="filter-btn chemistry" data-filter="chemistry">Chemistry</button>
+            <button class="filter-btn biology" data-filter="biology">Biology</button>
+          </div>
+          
+          <div class="concepts-list" id="conceptsList"></div>
+        </div>
+        
+        <div class="graph-viewer">
+          <canvas id="conceptGraph" width="800" height="600"></canvas>
+        </div>
+        
+        <div class="concept-detail" id="conceptDetail">
+          <h3 id="conceptTitle">Select a concept</h3>
+          <p id="conceptDescription">Click on a node in the graph to view details</p>
+          <div class="concept-meta">
+            <span class="concept-subject" id="conceptSubject"></span>
+            <div class="concept-progress" id="conceptProgress">
+              <button class="progress-btn" data-status="not-started">Not Started</button>
+              <button class="progress-btn" data-status="in-progress">In Progress</button>
+              <button class="progress-btn" data-status="learned">Learned</button>
+            </div>
+          </div>
+          <div class="concept-prerequisites" id="conceptPrereqs"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="page">
+      <div class="page-header">
+        <h1>Dashboard</h1>
+        <p>Track your learning progress</p>
+      </div>
+      
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-icon">🔥</div>
+          <div class="stat-value" id="streakCount">0</div>
+          <div class="stat-label">Day Streak</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📚</div>
+          <div class="stat-value" id="conceptsLearned">0</div>
+          <div class="stat-label">Concepts Learned</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🧪</div>
+          <div class="stat-value" id="experimentsSaved">0</div>
+          <div class="stat-label">Experiments Saved</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⏱️</div>
+          <div class="stat-value" id="timeSpent">0h</div>
+          <div class="stat-label">Time Learning</div>
+        </div>
+      </div>
+      
+      <div class="dashboard-charts">
+        <div class="chart-card">
+          <h3>Progress by Subject</h3>
+          <div class="progress-bars">
+            <div class="progress-item">
+              <span class="progress-label">Physics</span>
+              <div class="progress-bar">
+                <div class="progress-fill physics" id="physicsProgress" style="width: 30%"></div>
+              </div>
+              <span class="progress-percent">30%</span>
+            </div>
+            <div class="progress-item">
+              <span class="progress-label">Chemistry</span>
+              <div class="progress-bar">
+                <div class="progress-fill chemistry" id="chemistryProgress" style="width: 45%"></div>
+              </div>
+              <span class="progress-percent">45%</span>
+            </div>
+            <div class="progress-item">
+              <span class="progress-label">Biology</span>
+              <div class="progress-bar">
+                <div class="progress-fill biology" id="biologyProgress" style="width: 20%"></div>
+              </div>
+              <span class="progress-percent">20%</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="chart-card">
+          <h3>Recent Activity</h3>
+          <div class="activity-list" id="activityList">
+            <div class="activity-item">
+              <span class="activity-icon">⚡</span>
+              <span class="activity-text">Completed Gravity Simulation</span>
+              <span class="activity-time">Today</span>
+            </div>
+            <div class="activity-item">
+              <span class="activity-icon">🧪</span>
+              <span class="activity-text">Explored H₂O molecule</span>
+              <span class="activity-time">Yesterday</span>
+            </div>
+            <div class="activity-item">
+              <span class="activity-icon">🧬</span>
+              <span class="activity-text">Studied Cell Structure</span>
+              <span class="activity-time">2 days ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="saved-experiments">
+        <h3>Saved Experiments</h3>
+        <div class="experiments-list" id="experimentsList">
+          <p class="empty-state">No saved experiments yet. Go to Physics Lab to create one!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

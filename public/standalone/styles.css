@@ -1,0 +1,1332 @@
+/* SciScape Standalone Styles */
+
+:root {
+  /* Light theme */
+  --background: hsl(220, 20%, 97%);
+  --foreground: hsl(220, 30%, 10%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(220, 30%, 10%);
+  --primary: hsl(250, 89%, 62%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(180, 65%, 45%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --muted: hsl(220, 15%, 90%);
+  --muted-foreground: hsl(220, 15%, 40%);
+  --accent: hsl(280, 75%, 55%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --border: hsl(220, 15%, 85%);
+  --ring: hsl(250, 89%, 62%);
+  --radius: 1rem;
+
+  /* Science colors */
+  --physics: hsl(250, 89%, 62%);
+  --physics-glow: hsl(250, 100%, 70%);
+  --chemistry: hsl(150, 70%, 45%);
+  --chemistry-glow: hsl(150, 85%, 55%);
+  --biology: hsl(340, 75%, 55%);
+  --biology-glow: hsl(340, 90%, 65%);
+  --concept: hsl(45, 90%, 55%);
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(135deg, hsl(250, 89%, 62%) 0%, hsl(280, 75%, 55%) 50%, hsl(340, 75%, 55%) 100%);
+  --gradient-physics: linear-gradient(135deg, hsl(250, 89%, 62%) 0%, hsl(220, 90%, 55%) 100%);
+  --gradient-chemistry: linear-gradient(135deg, hsl(150, 70%, 45%) 0%, hsl(180, 70%, 50%) 100%);
+  --gradient-biology: linear-gradient(135deg, hsl(340, 75%, 55%) 0%, hsl(20, 80%, 55%) 100%);
+
+  --font-sans: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+.dark {
+  --background: hsl(220, 25%, 8%);
+  --foreground: hsl(220, 15%, 95%);
+  --card: hsl(220, 25%, 12%);
+  --card-foreground: hsl(220, 15%, 95%);
+  --primary: hsl(250, 89%, 68%);
+  --primary-foreground: hsl(220, 25%, 8%);
+  --secondary: hsl(180, 65%, 50%);
+  --muted: hsl(220, 20%, 20%);
+  --muted-foreground: hsl(220, 15%, 65%);
+  --accent: hsl(280, 75%, 60%);
+  --border: hsl(220, 20%, 20%);
+  --physics: hsl(250, 89%, 68%);
+  --chemistry: hsl(150, 75%, 55%);
+  --biology: hsl(340, 80%, 60%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--foreground);
+}
+
+.logo-icon {
+  font-size: 1.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: var(--gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: var(--muted-foreground);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary);
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.theme-toggle {
+  background: var(--muted);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: background 0.2s;
+}
+
+.theme-toggle:hover {
+  background: var(--border);
+}
+
+.dark .sun-icon { display: inline; }
+.dark .moon-icon { display: none; }
+.sun-icon { display: none; }
+.moon-icon { display: inline; }
+
+/* Main Content */
+.main-content {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+.page {
+  display: none;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  animation: fadeIn 0.3s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  background: var(--gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-header p {
+  color: var(--muted-foreground);
+  font-size: 1.1rem;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  padding: 4rem 0;
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  animation: float 8s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 400px;
+  height: 400px;
+  background: var(--physics);
+  top: -100px;
+  left: -100px;
+}
+
+.orb-2 {
+  width: 300px;
+  height: 300px;
+  background: var(--chemistry);
+  bottom: -50px;
+  right: 20%;
+  animation-delay: -2s;
+}
+
+.orb-3 {
+  width: 350px;
+  height: 350px;
+  background: var(--biology);
+  top: 30%;
+  right: -100px;
+  animation-delay: -4s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+
+.hero-content {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.gradient-text {
+  background: var(--gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--muted-foreground);
+  max-width: 500px;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.hero-3d {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Atom Model */
+.atom-model {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.nucleus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-hero);
+  border-radius: 50%;
+  box-shadow: 0 0 40px var(--primary);
+}
+
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.orbit-1 {
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0 -60px;
+  animation: rotate 3s linear infinite;
+}
+
+.orbit-2 {
+  width: 180px;
+  height: 180px;
+  margin: -90px 0 0 -90px;
+  animation: rotate 5s linear infinite reverse;
+  transform: rotateX(60deg);
+}
+
+.orbit-3 {
+  width: 240px;
+  height: 240px;
+  margin: -120px 0 0 -120px;
+  animation: rotate 7s linear infinite;
+  transform: rotateY(60deg);
+}
+
+@keyframes rotate {
+  from { transform: rotateZ(0deg); }
+  to { transform: rotateZ(360deg); }
+}
+
+.electron {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  top: -6px;
+  left: 50%;
+  margin-left: -6px;
+  box-shadow: 0 0 15px var(--accent);
+}
+
+/* Buttons */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.btn-primary:hover {
+  background: hsl(250, 89%, 55%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px var(--primary);
+}
+
+.btn-secondary {
+  background: var(--muted);
+  color: var(--foreground);
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+/* Lab Cards */
+.lab-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.lab-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.lab-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.physics-card::before { background: var(--gradient-physics); }
+.chemistry-card::before { background: var(--gradient-chemistry); }
+.biology-card::before { background: var(--gradient-biology); }
+
+.lab-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -20px var(--primary);
+}
+
+.lab-card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.lab-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.lab-card p {
+  color: var(--muted-foreground);
+  margin-bottom: 1rem;
+}
+
+.lab-card-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.lab-card-features span {
+  background: var(--muted);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--muted-foreground);
+}
+
+/* Features Section */
+.features-section {
+  padding: 4rem 0;
+}
+
+.features-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.feature-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card h4 {
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+}
+
+/* Physics Lab */
+.physics-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+}
+
+.simulation-container {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+#physicsCanvas {
+  width: 100%;
+  height: 400px;
+  display: block;
+}
+
+.simulation-overlay {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.trail-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--card);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.physics-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.control-panel,
+.readouts-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.control-panel h3,
+.readouts-panel h3 {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--muted-foreground);
+}
+
+.control-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.control-group {
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  color: var(--muted-foreground);
+}
+
+.control-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: calc(var(--radius) / 2);
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+.slider-group {
+  margin-bottom: 1rem;
+}
+
+.slider-group label {
+  display: block;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  color: var(--muted-foreground);
+}
+
+.slider-group input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary);
+}
+
+.readout {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.readout:last-child {
+  border-bottom: none;
+}
+
+.readout-label {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.readout-value {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--primary);
+}
+
+.experiment-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.graphs-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.graph-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.graph-panel h4 {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
+}
+
+.graph-panel canvas {
+  width: 100%;
+  height: 200px;
+}
+
+/* Chemistry Lab */
+.chemistry-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+}
+
+.molecule-viewer {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+#moleculeCanvas {
+  width: 100%;
+  height: 400px;
+  display: block;
+}
+
+.molecule-controls {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.molecule-controls .btn.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.chemistry-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.molecule-selector,
+.molecule-properties {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.molecule-selector h3,
+.molecule-properties h3 {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--muted-foreground);
+}
+
+.molecule-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.molecule-btn {
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) / 2);
+  background: var(--background);
+  color: var(--foreground);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.molecule-btn:hover,
+.molecule-btn.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+.property {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.property:last-child {
+  border-bottom: none;
+}
+
+.property-label {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.property-value {
+  font-weight: 500;
+}
+
+/* Periodic Table */
+.periodic-table-section {
+  margin-top: 3rem;
+}
+
+.periodic-table-section h2 {
+  margin-bottom: 1.5rem;
+}
+
+.periodic-table {
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  gap: 2px;
+  margin-bottom: 1rem;
+}
+
+.element {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.7rem;
+  padding: 2px;
+}
+
+.element:hover {
+  transform: scale(1.2);
+  z-index: 10;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.element .symbol {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.element .number {
+  font-size: 0.6rem;
+  color: var(--muted-foreground);
+}
+
+.element.alkali { background: hsl(0, 70%, 80%); }
+.element.alkaline { background: hsl(30, 70%, 80%); }
+.element.transition { background: hsl(45, 70%, 80%); }
+.element.basic { background: hsl(120, 40%, 80%); }
+.element.nonmetal { background: hsl(200, 70%, 80%); }
+.element.halogen { background: hsl(180, 70%, 80%); }
+.element.noble { background: hsl(270, 70%, 80%); }
+.element.lanthanide { background: hsl(300, 50%, 80%); }
+.element.actinide { background: hsl(330, 50%, 80%); }
+
+.element-info {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  min-height: 100px;
+}
+
+/* Biology Explorer */
+.biology-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+}
+
+.cell-viewer {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.cell-diagram {
+  width: 100%;
+  height: auto;
+}
+
+.cell-membrane {
+  fill: none;
+  stroke: var(--biology);
+  stroke-width: 8;
+}
+
+.cytoplasm {
+  fill: hsl(340, 30%, 95%);
+}
+
+.dark .cytoplasm {
+  fill: hsl(340, 30%, 20%);
+}
+
+.organelle {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.organelle:hover,
+.organelle.active {
+  filter: brightness(1.2);
+  transform-origin: center;
+}
+
+.nucleus {
+  fill: hsl(250, 60%, 70%);
+  stroke: hsl(250, 60%, 50%);
+  stroke-width: 2;
+}
+
+.nucleolus {
+  fill: hsl(250, 70%, 50%);
+}
+
+.mitochondria {
+  fill: hsl(30, 80%, 60%);
+  stroke: hsl(30, 80%, 40%);
+  stroke-width: 2;
+}
+
+.er {
+  stroke: hsl(200, 60%, 60%);
+}
+
+.golgi path {
+  stroke: hsl(280, 60%, 60%);
+}
+
+.ribosome {
+  fill: hsl(45, 80%, 50%);
+}
+
+.lysosome {
+  fill: hsl(0, 70%, 60%);
+  stroke: hsl(0, 70%, 40%);
+  stroke-width: 2;
+}
+
+.vacuole {
+  fill: hsl(180, 50%, 70%);
+  stroke: hsl(180, 50%, 50%);
+  stroke-width: 2;
+}
+
+.centriole rect {
+  fill: hsl(150, 60%, 50%);
+}
+
+.cell-labels .label {
+  font-size: 10px;
+  fill: var(--foreground);
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.biology-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.organelle-info,
+.biology-controls,
+.quiz-panel,
+.body-systems {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.organelle-info h3 {
+  margin-bottom: 0.5rem;
+  color: var(--biology);
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.quiz-panel h4 {
+  margin-bottom: 1rem;
+}
+
+.quiz-score {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.system-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.system-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) / 2);
+  background: var(--background);
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.system-btn:hover,
+.system-btn.active {
+  background: var(--biology);
+  color: white;
+  border-color: var(--biology);
+}
+
+/* Concepts Page */
+.concepts-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr 300px;
+  gap: 2rem;
+  min-height: 600px;
+}
+
+.concepts-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--foreground);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+.filter-btn.physics.active { background: var(--physics); border-color: var(--physics); }
+.filter-btn.chemistry.active { background: var(--chemistry); border-color: var(--chemistry); }
+.filter-btn.biology.active { background: var(--biology); border-color: var(--biology); }
+
+.concepts-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.concept-item {
+  padding: 0.75rem 1rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) / 2);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.concept-item:hover {
+  border-color: var(--primary);
+}
+
+.concept-item.physics { border-left: 3px solid var(--physics); }
+.concept-item.chemistry { border-left: 3px solid var(--chemistry); }
+.concept-item.biology { border-left: 3px solid var(--biology); }
+
+.concept-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.concept-status.in-progress { background: var(--concept); }
+.concept-status.learned { background: var(--chemistry); }
+
+.graph-viewer {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+#conceptGraph {
+  width: 100%;
+  height: 100%;
+}
+
+.concept-detail {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.concept-detail h3 {
+  margin-bottom: 0.5rem;
+}
+
+.concept-meta {
+  margin: 1rem 0;
+}
+
+.concept-subject {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.concept-progress {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.progress-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) / 2);
+  background: var(--background);
+  color: var(--foreground);
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+}
+
+.progress-btn:hover {
+  border-color: var(--primary);
+}
+
+.progress-btn.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+/* Dashboard */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.stat-label {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.dashboard-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.chart-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.chart-card h3 {
+  margin-bottom: 1.5rem;
+}
+
+.progress-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.progress-item {
+  display: grid;
+  grid-template-columns: 100px 1fr 50px;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-label {
+  font-size: 0.875rem;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--muted);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.progress-fill.physics { background: var(--physics); }
+.progress-fill.chemistry { background: var(--chemistry); }
+.progress-fill.biology { background: var(--biology); }
+
+.progress-percent {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  text-align: right;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: var(--background);
+  border-radius: calc(var(--radius) / 2);
+}
+
+.activity-icon {
+  font-size: 1.25rem;
+}
+
+.activity-text {
+  flex: 1;
+  font-size: 0.875rem;
+}
+
+.activity-time {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+.saved-experiments {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.saved-experiments h3 {
+  margin-bottom: 1rem;
+}
+
+.experiments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.empty-state {
+  color: var(--muted-foreground);
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .physics-layout,
+  .chemistry-layout,
+  .biology-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .concepts-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    margin: 0 auto 2rem;
+  }
+  
+  .hero-buttons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+  
+  .header-content {
+    padding: 1rem;
+  }
+  
+  .page {
+    padding: 1rem;
+  }
+  
+  .dashboard-charts {
+    grid-template-columns: 1fr;
+  }
+}
