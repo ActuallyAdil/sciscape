@@ -37,7 +37,14 @@ export const HeroSection = () => {
               <br />
               <span className="gradient-text">Play With It.</span>
             </h1>
-            <p className="text-lg md:text-xl font-bold mb-6">Made by Tejwash Dhakal</p>
+            <motion.p 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5, duration: 0.6, type: "spring" }}
+              className="text-lg md:text-xl font-bold mb-6 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 bg-clip-text text-transparent animate-pulse"
+            >
+              Made by Tejwash Dhakal
+            </motion.p>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0">
               Explore Physics, Chemistry, and Biology through interactive 3D simulations. 
