@@ -32,11 +32,12 @@ export const HeroSection = () => {
               <span className="text-sm font-medium">Interactive Science Learning</span>
             </motion.div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
               Don't Read Science.
               <br />
               <span className="gradient-text">Play With It.</span>
             </h1>
+            <p className="text-lg md:text-xl font-bold mb-6">Made by Tejwash Dhakal</p>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0">
               Explore Physics, Chemistry, and Biology through interactive 3D simulations. 
