@@ -33,9 +33,9 @@ export const HeroSection = () => {
             </motion.div>
 
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
-              Don't Read Science.
+              Science: 3D simulations
               <br />
-              <span className="gradient-text">Play With It.</span>
+              <span className="gradient-text">Important Terms</span>
             </h1>
             <motion.p 
               initial={{ opacity: 0, scale: 0.8 }}
